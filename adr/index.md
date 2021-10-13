@@ -10,4 +10,4 @@ Each ADR specifies:
 * Positive Consequences
 * Negative Consequences
 * Pros and Cons of each option
-* References
+* References (optional)
