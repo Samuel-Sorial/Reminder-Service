@@ -15,6 +15,10 @@ Having in mind scalability and ability to change!
 
 ## Decision Outcome
 ***Message Broker & Database***
+
+Message broker will be used to handle reminders that lies in near future (minutes). While Database will be used to store reminders that happens later (hours).
+
+Scheduled job will run at each interval (9 mins for example) to retrieve reminders that should be sent in near future from database and publish them to the message broker.
 ### Positive Consequences
 
 * Scalable
