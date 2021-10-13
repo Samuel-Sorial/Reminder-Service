@@ -1,5 +1,5 @@
 import { WebSocketServer } from "./WebSocket/Server";
-import { PORT } from "./config/environment";
+import { PORT } from "./Config/environment";
 
 WebSocketServer.startServer(PORT);
 WebSocketServer.addMessageListener((message) =>
