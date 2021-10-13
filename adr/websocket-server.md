@@ -30,9 +30,3 @@ To allow users send/receive messages from the server, it's required to use a rea
 #### Cons
 * Too much time spent on building
 * Requires too much knowledge about communication engineering
-
-
-## Links
-
-* [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
-* … <!-- numbers of links can vary -->
