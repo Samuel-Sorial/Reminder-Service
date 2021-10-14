@@ -10,7 +10,13 @@ export class Reminder {
     }
 
     private static validateReminder(reminder: any) {
-        throw Error("Not implemented yet.");
+        if (!reminder.message || !reminder.date) {
+            throw new RangeError("Please provide a complete reminder object.");
+        }
+        const date = new Date(reminder.date);
+        if (!DateUtils.isValidDate(date)) {
+            throw new RangeError("Please provide a valid date for reminder.");
+        }
     }
 
     public static fromString(plainReminder: string) {
