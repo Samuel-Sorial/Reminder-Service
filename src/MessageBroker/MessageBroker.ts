@@ -93,9 +93,14 @@ export class MessageBroker {
             if (!msg) {
                 return;
             }
-            const content = msg.content.toString();
-            callback(content);
-            consumerChannel.ack(msg);
+            try {
+                const content = msg.content.toString();
+                callback(content);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                consumerChannel.ack(msg);
+            }
         });
     }
 }
