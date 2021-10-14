@@ -3,7 +3,7 @@ import { connect, Channel, Connection } from "amqplib";
 export class MessageBroker {
     private static connection: Promise<Connection>;
     private static publicChannel: Promise<Channel>;
-    private static assertedEntities: Set<string>;
+    private static assertedEntities: Set<string> = new Set<string>();
 
     static connect(connectionString: string) {
         if (!this.connection) {
