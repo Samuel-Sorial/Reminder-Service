@@ -26,7 +26,13 @@ export class Reminder {
     }
 
     public notify(): void {
-        const observer = ObserverFactory(this);
-        observer.sendReminder(this);
+        let observer = ObserverFactory(this);
+        try {
+            observer.sendReminder(this);
+        } catch (error) {
+            // Means that reminder observer type changed while processing, re-generate it
+            observer = ObserverFactory(this);
+            observer.sendReminder(this);
+        }
     }
 }

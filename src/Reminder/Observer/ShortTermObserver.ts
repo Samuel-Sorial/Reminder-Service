@@ -16,7 +16,9 @@ export class ShortTermObserver implements Observer {
             reminder.date,
             new Date()
         );
-
+        if (durationInMillSeconds <= 0) {
+            throw new Error("Wrong observer!");
+        }
         await MessageBroker.delayedPublish(
             JSON.stringify(reminder),
             ShortTermObserver.QUEUE_NAME,
