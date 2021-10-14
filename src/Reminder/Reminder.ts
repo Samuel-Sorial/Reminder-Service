@@ -21,7 +21,7 @@ export class Reminder {
     public static fromString(plainReminder: string) {
         const jsonReminder = JSON.parse(plainReminder);
         this.validateReminder(jsonReminder);
-        return new Reminder(jsonReminder.date, jsonReminder.message);
+        return new Reminder(new Date(jsonReminder.date), jsonReminder.message);
     }
 
     public notify(): void {

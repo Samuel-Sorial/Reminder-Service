@@ -16,4 +16,11 @@ describe("create reminder from string", function () {
             Reminder.fromString(`{"date":"${new Date().toISOString()}"}`);
         expect(createReminder).toThrowError(RangeError);
     });
+    it("sucess when given correct date & message", function () {
+        const createReminder = () =>
+            Reminder.fromString(
+                `{"date":"${new Date().toISOString()}", "message": "test"}`
+            );
+        expect(createReminder).not.toThrowError();
+    });
 });
