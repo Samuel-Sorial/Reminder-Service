@@ -7,15 +7,19 @@
     "build": "tsc -w",
     "dev:run": "nodemon build/main.js",
     "dev": "concurrently npm:build npm:dev:*",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Samuel Sorial",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "concurrently": "^6.3.0",
     "dotenv": "^10.0.0",
+    "jest": "^27.2.5",
     "nodemon": "^2.0.13",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "test-jest": "^1.0.1",
+    "ts-jest": "^27.0.5"
   },
   "dependencies": {
     "@types/amqplib": "^0.8.2",
