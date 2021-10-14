@@ -1,4 +1,5 @@
 import { DateUtils } from "../Date/DateUtils";
+import { ObserverFactory } from "./Observer/Observer";
 
 export class Reminder {
     public readonly date: Date;
@@ -25,6 +26,7 @@ export class Reminder {
     }
 
     public notify(): void {
-        throw Error("Not implemented yet.");
+        const observer = ObserverFactory(this);
+        observer.sendReminder(this);
     }
 }
