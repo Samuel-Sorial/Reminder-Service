@@ -5,11 +5,14 @@ export class MessageBroker {
     private static publicChannel: Promise<Channel>;
     private static assertedEntities: Set<string> = new Set<string>();
 
-    static connect(connectionString: string) {
+    static async connect(connectionString: string) {
         if (!this.connection) {
             this.connection = Promise.resolve<Connection>(
                 connect(connectionString)
-            );
+            ).catch((error) => {
+                console.error(error);
+                throw new Error("Can not connect to MessageBroker!");
+            });
         }
     }
 
