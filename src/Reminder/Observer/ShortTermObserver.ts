@@ -1,5 +1,7 @@
 import { Reminder } from "../Reminder";
 import { Observer } from "./Observer";
+import { MessageBroker } from "../../MessageBroker/MessageBroker";
+import { DateUtils } from "../../Date/DateUtils";
 
 export class ShortTermObserver implements Observer {
     public static readonly INTERVAL_MILLSECONDS = 5 * 60 * 1000;
@@ -9,5 +11,16 @@ export class ShortTermObserver implements Observer {
         const reminder = Reminder.fromString(message);
         reminder.notify();
     }
-    sendReminder(reminder: Reminder): void {}
+    async sendReminder(reminder: Reminder) {
+        const durationInMillSeconds = DateUtils.subtractInMillSeconds(
+            reminder.date,
+            new Date()
+        );
+
+        await MessageBroker.delayedPublish(
+            JSON.stringify(reminder),
+            ShortTermObserver.QUEUE_NAME,
+            durationInMillSeconds
+        );
+    }
 }
