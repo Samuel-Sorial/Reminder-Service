@@ -18,7 +18,9 @@
     "prettier": "^2.4.1"
   },
   "dependencies": {
+    "@types/amqplib": "^0.8.2",
     "@types/ws": "^8.2.0",
+    "amqplib": "^0.8.0",
     "ws": "^8.2.3"
   },
   "prettier": {
