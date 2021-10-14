@@ -19,4 +19,12 @@ export class WebSocketServer {
             });
         });
     }
+
+    public static broadcast(msg: string) {
+        this.server.clients.forEach((socket) => {
+            if (socket.OPEN) {
+                socket.send(msg);
+            }
+        });
+    }
 }
