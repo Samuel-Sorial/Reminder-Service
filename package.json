@@ -4,26 +4,30 @@
   "description": "Reminder is a simple node/typescript service with a websocket interface to handle clients.",
   "main": "main.js",
   "scripts": {
-    "build": "tsc -w",
+    "dev:build": "tsc -w",
     "dev:run": "nodemon build/main.js",
-    "dev": "concurrently npm:build npm:dev:*",
+    "dev": "concurrently npm:dev:*",
+    "build": "tsc",
     "test": "jest"
   },
   "author": "Samuel Sorial",
   "license": "ISC",
   "devDependencies": {
+    "@types/amqplib": "^0.8.2",
+    "@types/dotenv": "^8.2.0",
     "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.9",
+    "@types/ws": "^8.2.0",
     "concurrently": "^6.3.0",
-    "dotenv": "^10.0.0",
     "jest": "^27.2.5",
     "nodemon": "^2.0.13",
     "prettier": "^2.4.1",
     "test-jest": "^1.0.1",
-    "ts-jest": "^27.0.5"
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@types/amqplib": "^0.8.2",
-    "@types/ws": "^8.2.0",
+    "dotenv": "^10.0.0",
     "amqplib": "^0.8.0",
     "ws": "^8.2.3"
   },
