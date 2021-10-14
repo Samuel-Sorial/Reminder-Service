@@ -5,6 +5,9 @@ export class Reminder {
     public readonly message: string;
 
     constructor(date: Date, message: string) {
+        if (!DateUtils.isValidDate(date)) {
+            throw new RangeError("Please provide a valid date for reminder.");
+        }
         this.date = date;
         this.message = message;
     }
@@ -12,10 +15,6 @@ export class Reminder {
     private static validateReminder(reminder: any) {
         if (!reminder.message || !reminder.date) {
             throw new RangeError("Please provide a complete reminder object.");
-        }
-        const date = new Date(reminder.date);
-        if (!DateUtils.isValidDate(date)) {
-            throw new RangeError("Please provide a valid date for reminder.");
         }
     }
 
