@@ -10,8 +10,8 @@ if (!MESSAGE_BROKER_CONNECTION) {
     );
 }
 MessageBroker.connect(MESSAGE_BROKER_CONNECTION);
-WebSocketServer.addMessageListener(InstantObserver.onMessage);
 WebSocketServer.startServer(PORT);
+WebSocketServer.addMessageListener(InstantObserver.onMessage);
 MessageBroker.consume(
     ShortTermObserver.QUEUE_NAME,
     ShortTermObserver.onMessage
