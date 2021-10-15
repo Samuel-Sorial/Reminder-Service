@@ -16,7 +16,14 @@ export class WebSocketServer {
     public static addMessageListener(callback: (message: string) => void) {
         this.server.on("connection", (socket: WebSocket) => {
             socket.on("message", (message: RawData) => {
-                callback(message.toString());
+                try {
+                    callback(message.toString());
+                } catch (error) {
+                    socket.send(
+                        `Invalid reminder, a valid reminder should be like:
+                         "{"message": String, "date": String"}" where date is an ISO string.`
+                    );
+                }
             });
         });
     }
