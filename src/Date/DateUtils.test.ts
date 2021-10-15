@@ -49,3 +49,81 @@ describe("Subtract two dates", function () {
         expect(durationMillSeconds).toBe(0);
     });
 });
+
+describe("round to next n minutes", function () {
+    describe("returns next n minutes when current = 0", function () {
+        test("10 when minutes 0 and next = 10", function () {
+            const date = new Date();
+            date.setMinutes(0);
+            const roundedDate = DateUtils.roundByMinutes(date, 10);
+            expect(roundedDate.getMinutes()).toBe(10);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+
+        test("8 when minutes 0 and next = 8", function () {
+            const date = new Date();
+            date.setMinutes(0);
+            const roundedDate = DateUtils.roundByMinutes(date, 8);
+            expect(roundedDate.getMinutes()).toBe(8);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+
+        test("3 when minutes 0 and next = 3", function () {
+            const date = new Date();
+            date.setMinutes(0);
+            const roundedDate = DateUtils.roundByMinutes(date, 3);
+            expect(roundedDate.getMinutes()).toBe(3);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+    });
+
+    describe("returns next n minutes when current is in between", function () {
+        test("20 when minutes 12 and next = 10", function () {
+            const date = new Date();
+            date.setMinutes(12);
+            const roundedDate = DateUtils.roundByMinutes(date, 10);
+            expect(roundedDate.getMinutes()).toBe(20);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+
+        test("16 when minutes 11 and next = 8", function () {
+            const date = new Date();
+            date.setMinutes(11);
+            const roundedDate = DateUtils.roundByMinutes(date, 8);
+            expect(roundedDate.getMinutes()).toBe(16);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+
+        test("27 when minutes 25 and next = 3", function () {
+            const date = new Date();
+            date.setMinutes(25);
+            const roundedDate = DateUtils.roundByMinutes(date, 3);
+            expect(roundedDate.getMinutes()).toBe(27);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+    });
+
+    it("returns next n when the same but seconds greater than 0", function () {
+        const date = new Date();
+        date.setMinutes(10);
+        date.setSeconds(1);
+        const roundedDate = DateUtils.roundByMinutes(date, 10);
+        expect(roundedDate.getMinutes()).toBe(20);
+    });
+
+    it("returns next n when the same but millseconds greater than 0", function () {
+        const date = new Date();
+        date.setMinutes(10);
+        date.setMilliseconds(1);
+        const roundedDate = DateUtils.roundByMinutes(date, 10);
+        expect(roundedDate.getMinutes()).toBe(20);
+    });
+
+    it("always zeroes seconds & millseconds", function () {
+        const date = new Date();
+        const roundedDate = DateUtils.roundByMinutes(date, 10);
+        expect(roundedDate.getSeconds()).toBe(0);
+        expect(roundedDate.getMilliseconds()).toBe(0);
+        expect(roundedDate.getUTCMilliseconds()).toBe(0);
+    });
+});
