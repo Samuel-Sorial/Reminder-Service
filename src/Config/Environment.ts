@@ -9,4 +9,6 @@ export const PORT: number =
         ? Number.parseInt(process.env.PORT)
         : DEFAULT_PORT;
 
-export const MESSAGE_BROKER_CONNECTION = process.env.MESSAGE_BROKER_CONNECTION;
+export const MESSAGE_BROKER_URL = process.env.MESSAGE_BROKER_CONNECTION;
+
+export const DATABASE_URL = process.env.DATABASE_CONNECTION;
