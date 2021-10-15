@@ -127,3 +127,47 @@ describe("round to next n minutes", function () {
         expect(roundedDate.getUTCMilliseconds()).toBe(0);
     });
 });
+
+describe("floor to lower n minutes", function () {
+    test("returns same n minutes when current = 0", function () {
+        const date = new Date();
+        date.setMinutes(0);
+        const roundedDate = DateUtils.floorByMinutes(date, 10);
+        expect(roundedDate.getMinutes()).toBe(0);
+        expect(roundedDate.getHours()).toBe(date.getHours());
+    });
+
+    describe("returns lower n minutes when current is in between", function () {
+        test("10 when minutes 12 and lower = 10", function () {
+            const date = new Date();
+            date.setMinutes(12);
+            const roundedDate = DateUtils.floorByMinutes(date, 10);
+            expect(roundedDate.getMinutes()).toBe(10);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+
+        test("8 when minutes 11 and lower = 8", function () {
+            const date = new Date();
+            date.setMinutes(11);
+            const roundedDate = DateUtils.floorByMinutes(date, 8);
+            expect(roundedDate.getMinutes()).toBe(8);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+
+        test("24 when minutes 25 and lower = 3", function () {
+            const date = new Date();
+            date.setMinutes(25);
+            const roundedDate = DateUtils.floorByMinutes(date, 3);
+            expect(roundedDate.getMinutes()).toBe(24);
+            expect(roundedDate.getHours()).toBe(date.getHours());
+        });
+    });
+
+    it("always zeroes seconds & millseconds", function () {
+        const date = new Date();
+        const roundedDate = DateUtils.floorByMinutes(date, 10);
+        expect(roundedDate.getSeconds()).toBe(0);
+        expect(roundedDate.getMilliseconds()).toBe(0);
+        expect(roundedDate.getUTCMilliseconds()).toBe(0);
+    });
+});
