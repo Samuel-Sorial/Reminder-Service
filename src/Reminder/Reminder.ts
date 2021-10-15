@@ -25,6 +25,10 @@ export class Reminder {
         return new Reminder(new Date(jsonReminder.date), jsonReminder.message);
     }
 
+    public toString() {
+        return JSON.stringify(this);
+    }
+
     public notify(): void {
         let observer = ObserverFactory(this);
         try {
