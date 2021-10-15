@@ -3,9 +3,21 @@ import { Observer } from "./Observer";
 import { Database } from "../../Database/Database";
 import { DateUtils } from "../../Date/DateUtils";
 
+export interface LongTermEngine {
+    getListElements(listName: string): Promise<string[]>;
+    removeList(listName: string): Promise<void>;
+    addToList(listNaem: string, msg: string): Promise<void>;
+}
+
 export class LongTermObserver implements Observer {
+    private static engine: LongTermEngine;
+
     private static getNearestGroup(date: Date): string {
         return DateUtils.floorByMinutes(date, 1).toISOString();
+    }
+
+    static useEngine(engine: LongTermEngine) {
+        this.engine = engine;
     }
 
     static async moveNextGroupToNextObserver() {

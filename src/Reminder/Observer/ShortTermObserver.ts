@@ -1,11 +1,19 @@
 import { Reminder } from "../Reminder";
 import { Observer } from "./Observer";
-import { MessageBroker } from "../../MessageBroker/MessageBroker";
 import { DateUtils } from "../../Date/DateUtils";
+
+export interface ShortTermEngine {
+    delayedPublish(msg: string, msgTopic: string, delay: number): void;
+}
 
 export class ShortTermObserver implements Observer {
     public static readonly INTERVAL_MILLSECONDS = 3 * 60 * 1000;
     public static readonly QUEUE_NAME = "reminder";
+    private static engine: ShortTermEngine;
+
+    public static useEngine(engine: ShortTermEngine) {
+        this.engine = engine;
+    }
 
     public static onMessage(message: string) {
         const reminder = Reminder.fromString(message);
@@ -19,7 +27,7 @@ export class ShortTermObserver implements Observer {
         if (durationInMillSeconds <= 0) {
             throw new Error("Wrong observer!");
         }
-        await MessageBroker.delayedPublish(
+        await ShortTermObserver.engine.delayedPublish(
             reminder.toString(),
             ShortTermObserver.QUEUE_NAME,
             durationInMillSeconds
