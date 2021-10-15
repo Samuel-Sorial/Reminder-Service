@@ -10,6 +10,7 @@ export class WebSocketServer {
             );
         }
         this.server = new Server({ port });
+        console.log(`Started successfully WebSocket server on port ${port}`);
     }
 
     public static addMessageListener(callback: (message: string) => void) {
