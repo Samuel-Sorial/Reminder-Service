@@ -1,25 +1,25 @@
-import { connect, Channel, Connection } from "amqplib";
+import { Channel, connect, Connection } from "amqplib";
 
 export class MessageBroker {
-    private static connection: Promise<Connection>;
-    private static publicChannel: Promise<Channel>;
+    private static connection: Connection;
+    private static publicChannel: Channel;
     private static assertedEntities: Set<string> = new Set<string>();
 
     static async connect(connectionString: string) {
         if (!this.connection) {
-            this.connection = Promise.resolve<Connection>(
-                connect(connectionString)
-            ).catch((error) => {
+            try {
+                this.connection = await connect(connectionString);
+                console.log("Connected successfully to Message Broker");
+            } catch (error) {
                 console.error(error);
-                throw new Error("Can not connect to MessageBroker!");
-            });
+                throw new Error("Can not connect to Message Broker!");
+            }
         }
     }
 
     private static async getPublicChannel() {
         if (!this.publicChannel) {
-            const connection = await this.connection;
-            this.publicChannel = Promise.resolve(connection.createChannel());
+            this.publicChannel = await this.connection.createChannel();
         }
         return this.publicChannel;
     }
@@ -87,7 +87,7 @@ export class MessageBroker {
         if (!this.connection) {
             throw new Error("Can not consume before connecting.");
         }
-        const connection = await this.connection;
+        const connection = this.connection;
         const consumerChannel = await connection.createChannel();
         if (!this.assertedEntities.has(queueName)) {
             await consumerChannel.assertQueue(queueName);
