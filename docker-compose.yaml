@@ -1,0 +1,60 @@
+version: "3"
+
+volumes:
+  rabbitmq_volume:
+    driver: local
+  redis_volume:
+    driver: local
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  rabbitmq:
+    image: heidiks/rabbitmq-delayed-message-exchange
+    restart: always
+    hostname: rabbitmq
+    ports:
+      - 15672:15672
+    volumes:
+      - rabbitmq_volume:/var/lib/rabbitmq
+      - rabbitmq_volume:/var/logs/rabbitmq
+    networks:
+      - app-tier
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    hostname: redis
+    command: redis-server --appendonly yes --save 60 1 --loglevel warning
+    networks:
+      - app-tier
+    volumes:
+      - redis_volume:/data
+
+  reminder:
+    image: reminder
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    depends_on:
+      - rabbitmq
+      - redis
+    networks:
+      - app-tier
+
+  move_reminders_cron:
+    image: reminder
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+      - redis
+      - reminder
+    networks:
+      - app-tier
+    command: "crond -f -S -L /dev/stdout"
