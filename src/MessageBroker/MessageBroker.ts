@@ -17,6 +17,11 @@ export class MessageBroker {
         }
     }
 
+    static async closeConnection() {
+        await this.connection.close();
+        console.log("Closed Message Broker Connection");
+    }
+
     private static async getPublicChannel() {
         if (!this.publicChannel) {
             this.publicChannel = await this.connection.createChannel();
@@ -92,13 +97,14 @@ export class MessageBroker {
         if (!this.assertedEntities.has(queueName)) {
             await consumerChannel.assertQueue(queueName);
         }
-        await consumerChannel.consume(queueName, (msg) => {
+        await consumerChannel.consume(queueName, async (msg) => {
+            console.log("Msg Received");
             if (!msg) {
                 return;
             }
             try {
                 const content = msg.content.toString();
-                callback(content);
+                await callback(content);
             } catch (error) {
                 console.error(error);
             } finally {
