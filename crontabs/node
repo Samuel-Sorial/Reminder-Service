@@ -1,0 +1,2 @@
+# min hour day month weekday command
+* * * * * node /home/node/service/Scripts/MoveRemindersToNextObserver.js | tee /home/node/log/node.log
