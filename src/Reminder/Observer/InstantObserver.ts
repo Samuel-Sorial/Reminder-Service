@@ -12,9 +12,9 @@ export class InstantObserver implements Observer {
         this.engine = engine;
     }
 
-    public static onMessage(mesage: string): void {
+    public static async onMessage(mesage: string) {
         const reminder = Reminder.fromString(mesage);
-        reminder.notify();
+        await reminder.notify();
     }
 
     sendReminder(reminder: Reminder): void {

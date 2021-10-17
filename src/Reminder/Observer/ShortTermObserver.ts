@@ -15,9 +15,9 @@ export class ShortTermObserver implements Observer {
         this.engine = engine;
     }
 
-    public static onMessage(message: string) {
+    public static async onMessage(message: string) {
         const reminder = Reminder.fromString(message);
-        reminder.notify();
+        await reminder.notify();
     }
     async sendReminder(reminder: Reminder) {
         const durationInMillSeconds = DateUtils.subtractInMillSeconds(

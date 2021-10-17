@@ -29,14 +29,15 @@ export class Reminder {
         return JSON.stringify(this);
     }
 
-    public notify(): void {
+    public async notify() {
         let observer = ObserverFactory(this);
+
         try {
-            observer.sendReminder(this);
+            await observer.sendReminder(this);
         } catch (error) {
             // Means that reminder observer type changed while processing, re-generate it
             observer = ObserverFactory(this);
-            observer.sendReminder(this);
+            await observer.sendReminder(this);
         }
     }
 }

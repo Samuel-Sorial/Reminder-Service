@@ -23,11 +23,12 @@ export class LongTermObserver implements Observer {
     static async moveNextGroupToNextObserver() {
         const listName = DateUtils.roundByMinutes(new Date(), 1).toISOString();
         const reminders = await Database.getListElements(listName);
-        reminders.forEach((reminder) => {
+        const remindersPromises = reminders.map(async (reminder) => {
             const parsedReminder = Reminder.fromString(reminder);
 
-            parsedReminder.notify();
+            return parsedReminder.notify();
         });
+        await Promise.all(remindersPromises);
         await Database.removeList(listName);
         return { listName, totalReminders: reminders.length };
     }
