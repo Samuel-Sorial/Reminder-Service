@@ -16,6 +16,18 @@ export class Database {
         }
     }
 
+    public static closeServer() {
+        return new Promise((resolve, reject) => {
+            this.client.quit((err, reply) => {
+                if (err) {
+                    return reject();
+                }
+                console.log("Closed DB Connection");
+                resolve(reply);
+            });
+        });
+    }
+
     public static addToList(listName: string, value: string): Promise<void> {
         return new Promise((resolve, reject) => {
             this.client.lpush(listName, value, (error) => {
