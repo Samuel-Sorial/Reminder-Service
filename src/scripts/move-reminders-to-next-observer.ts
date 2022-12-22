@@ -1,18 +1,11 @@
 import { MessageBroker } from "../message-broker/message-broker";
 import { Database } from "../database/database";
-import { MESSAGE_BROKER_URL, DATABASE_URL } from "../config/environment";
+import { loadConfig } from "../config";
 import { LongTermObserver } from "../reminder/observer/long-term-observer";
 import { ShortTermObserver } from "../reminder/observer/short-term-observer";
 
 export async function moveRemindersToNextObserver() {
-    if (!MESSAGE_BROKER_URL) {
-        throw new Error(
-            "Can not start service without specifying Message Broker connection string."
-        );
-    }
-    if (!DATABASE_URL) {
-        throw new Error("Can not start service without specifying DB url.");
-    }
+    const { MESSAGE_BROKER_URL, DATABASE_URL } = loadConfig();
     await MessageBroker.connect(MESSAGE_BROKER_URL);
     ShortTermObserver.useEngine(MessageBroker);
     Database.startServer(DATABASE_URL);
