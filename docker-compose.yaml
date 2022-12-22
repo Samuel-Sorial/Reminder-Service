@@ -35,6 +35,9 @@ services:
 
   reminder:
     image: reminder
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     env_file:
       - .env
@@ -48,6 +51,9 @@ services:
 
   move_reminders_cron:
     image: reminder
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     env_file:
       - .env
