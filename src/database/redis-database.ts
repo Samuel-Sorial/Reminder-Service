@@ -2,19 +2,26 @@ import { createClient, RedisClient } from "redis";
 import { IDatabase } from "./database";
 import { logger } from "../logger";
 export class RedisDatabase implements IDatabase {
-    private client: RedisClient;
-    constructor(url: string) {
+    private client: RedisClient | undefined;
+    constructor(private url: string) {}
+
+    public startServer(): void {
+        if (this.client) {
+            return;
+        }
         try {
-            this.client = createClient({ url });
+            this.client = createClient({ url: this.url });
             logger.info("Connected successfully to database");
         } catch (error) {
             logger.error(error);
             throw new Error("Can not connect to database");
         }
     }
-
     public closeServer(): Promise<void> {
         return new Promise((resolve, reject) => {
+            if (!this.client) {
+                return reject();
+            }
             this.client.quit((err) => {
                 if (err) {
                     return reject();
@@ -27,6 +34,9 @@ export class RedisDatabase implements IDatabase {
 
     public addToList(listName: string, value: string): Promise<void> {
         return new Promise((resolve, reject) => {
+            if (!this.client) {
+                return reject();
+            }
             this.client.lpush(listName, value, (error) => {
                 if (error) {
                     return reject(error);
@@ -42,6 +52,9 @@ export class RedisDatabase implements IDatabase {
         to?: number
     ): Promise<string[]> {
         return new Promise((resolve, reject) => {
+            if (!this.client) {
+                return reject();
+            }
             this.client.lrange(
                 listName,
                 from || 0,
@@ -58,6 +71,9 @@ export class RedisDatabase implements IDatabase {
 
     public removeList(listName: string): Promise<void> {
         return new Promise((resolve, reject) => {
+            if (!this.client) {
+                return reject();
+            }
             this.client.del(listName, (error) => {
                 if (error) {
                     return reject(error);

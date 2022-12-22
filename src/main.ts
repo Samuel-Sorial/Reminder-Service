@@ -20,6 +20,7 @@ async function main() {
     ShortTermObserver.useEngine(MessageBroker, QUEUE_NAME);
 
     const db = new RedisDatabase(DATABASE_URL);
+    db.startServer();
     LongTermObserver.useEngine(db);
 
     logger.info("Service started successfully!");

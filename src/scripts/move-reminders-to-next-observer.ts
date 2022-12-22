@@ -10,6 +10,7 @@ export async function moveRemindersToNextObserver() {
     await MessageBroker.connect(MESSAGE_BROKER_URL);
     ShortTermObserver.useEngine(MessageBroker, QUEUE_NAME);
     const db = new RedisDatabase(DATABASE_URL);
+    db.startServer();
     LongTermObserver.useEngine(db);
     const { totalReminders, listName } =
         await LongTermObserver.moveNextGroupToNextObserver();
