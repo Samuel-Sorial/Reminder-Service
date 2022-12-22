@@ -2,7 +2,7 @@
 ### Builder Image ###
 #####################
 
-FROM node:14.18.1-alpine as builder
+FROM node:18-alpine as builder
 
 # prepare builder files
 RUN mkdir -p /home/node/src
@@ -24,7 +24,7 @@ RUN npm run build
 ### Service Image ###
 #####################
 
-FROM node:14.18.1-alpine
+FROM node:18-alpine
 
 # install packages
 RUN apk add --update busybox-suid
