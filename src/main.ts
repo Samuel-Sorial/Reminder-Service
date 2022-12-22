@@ -5,6 +5,7 @@ import { InstantObserver } from "./reminder/observer/instant-observer";
 import { ShortTermObserver } from "./reminder/observer/short-term-observer";
 import { loadConfig } from "./config";
 import { LongTermObserver } from "./reminder/observer/long-term-observer";
+import { logger } from "./logger";
 
 async function main() {
     const { PORT, MESSAGE_BROKER_URL, DATABASE_URL, QUEUE_NAME } = loadConfig();
@@ -21,7 +22,7 @@ async function main() {
     const db = new RedisDatabase(DATABASE_URL);
     LongTermObserver.useEngine(db);
 
-    console.log("Service started successfully!");
+    logger.info("Service started successfully!");
 }
 
 main();

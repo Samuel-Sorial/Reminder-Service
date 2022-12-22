@@ -3,6 +3,7 @@ import { loadConfig } from "../config";
 import { LongTermObserver } from "../reminder/observer/long-term-observer";
 import { ShortTermObserver } from "../reminder/observer/short-term-observer";
 import { RedisDatabase } from "../database";
+import { logger } from "../logger";
 
 export async function moveRemindersToNextObserver() {
     const { MESSAGE_BROKER_URL, DATABASE_URL, QUEUE_NAME } = loadConfig();
@@ -12,7 +13,7 @@ export async function moveRemindersToNextObserver() {
     LongTermObserver.useEngine(db);
     const { totalReminders, listName } =
         await LongTermObserver.moveNextGroupToNextObserver();
-    console.log(`Successfully ran Move reminders script at ${new Date().toISOString()}: 
+    logger.info(`Successfully ran Move reminders script at ${new Date().toISOString()}: 
         - Moved ${totalReminders} reminder(s)
         - Removed db list: ${listName}`);
     await MessageBroker.closeConnection();
