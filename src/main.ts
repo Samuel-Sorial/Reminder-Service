@@ -7,7 +7,7 @@ import { loadConfig } from "./config";
 import { LongTermObserver } from "./reminder/observer/long-term-observer";
 
 async function main() {
-    const { PORT, MESSAGE_BROKER_URL, DATABASE_URL } = loadConfig();
+    const { PORT, MESSAGE_BROKER_URL, DATABASE_URL, QUEUE_NAME } = loadConfig();
 
     await MessageBroker.connect(MESSAGE_BROKER_URL);
 
@@ -15,11 +15,8 @@ async function main() {
     WebSocketServer.addMessageListener(InstantObserver.onMessage);
     InstantObserver.useEngine(WebSocketServer);
 
-    await MessageBroker.consume(
-        ShortTermObserver.QUEUE_NAME,
-        ShortTermObserver.onMessage
-    );
-    ShortTermObserver.useEngine(MessageBroker);
+    await MessageBroker.consume(QUEUE_NAME, ShortTermObserver.onMessage);
+    ShortTermObserver.useEngine(MessageBroker, QUEUE_NAME);
 
     const db = new RedisDatabase(DATABASE_URL);
     LongTermObserver.useEngine(db);

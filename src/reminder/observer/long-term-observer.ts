@@ -26,10 +26,10 @@ export class LongTermObserver implements Observer {
         );
         const remindersPromises = reminders.map(async (reminder) => {
             const parsedReminder = Reminder.fromString(reminder);
-
             return parsedReminder.notify();
         });
         await Promise.all(remindersPromises);
+
         await LongTermObserver.engine.removeList(listName);
         return { listName, totalReminders: reminders.length };
     }

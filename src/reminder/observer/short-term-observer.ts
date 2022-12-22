@@ -7,12 +7,11 @@ export interface ShortTermEngine {
 }
 
 export class ShortTermObserver implements Observer {
-    public static readonly INTERVAL_MILLISECONDS = 3 * 60 * 1000;
-    public static readonly QUEUE_NAME = "reminder";
     private static engine: ShortTermEngine;
-
-    public static useEngine(engine: ShortTermEngine) {
+    private static topic: string;
+    public static useEngine(engine: ShortTermEngine, topic: string) {
         this.engine = engine;
+        this.topic = topic;
     }
 
     public static async onMessage(message: string) {
@@ -29,7 +28,7 @@ export class ShortTermObserver implements Observer {
         }
         await ShortTermObserver.engine.delayedPublish(
             reminder.toString(),
-            ShortTermObserver.QUEUE_NAME,
+            ShortTermObserver.topic,
             durationInMillSeconds
         );
     }
