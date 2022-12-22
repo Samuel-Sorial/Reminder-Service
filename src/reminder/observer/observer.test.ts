@@ -4,7 +4,7 @@ import { InstantObserver } from "./instant-observer";
 import { ShortTermObserver } from "./short-term-observer";
 import { LongTermObserver } from "./long-term-observer";
 
-describe("Observer factory", function () {
+describe("observer factory", function () {
     it("returns instant in case of now", function () {
         const observer = ObserverFactory(new Reminder(new Date(), "t"));
 
