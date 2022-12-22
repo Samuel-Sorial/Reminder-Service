@@ -5,15 +5,6 @@
 *** Thanks again! Now go create something AMAZING! :D
 -->
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
 <h3 align="center">Reminder Service</h3>
 
   <p align="center">
@@ -46,6 +37,8 @@
     <li><a href="#testing">Testing</a></li>
     <li><a href="#usage-instructions">Usage Instructions</a></li>
     <li><a href="#behavior">Behavior</a></li>
+    <li><a href="#how-the-service-works">How it works</a></li>
+
 </ol>
 </details>
 
@@ -95,16 +88,11 @@ cd Reminder-Service
 cp .env.example .env
 ```
 
-4. Build docker image 
-```shell
-sudo docker build -t  reminder .
-```
-
-5. Run docker-compose
+4. Run docker-compose
 ```shell
 sudo docker-compose up --build -d
 ```
-   <!-- Testing -->
+<!-- Testing -->
 
 ---
 
@@ -149,4 +137,18 @@ Reminder message example:
 
 ### Behavior
 * If any reminder request is sent with a date that has already passed,
-the service broadcasts it immediatly (assuming it was delayed by any reason from client side).
+  the service broadcasts it immediatly (assuming it was delayed by any reason from client side).
+---
+<!-- How -->
+
+# How the Service Works
+
+When the service receives a message, it is categorized into one of three categories:
+
+1. Instant message: These are sent using websockets.
+2. Short term delayed message: These are stored in RabbitMQ and later consumed and moved to the instant message handler.
+3. Long term delayed message: These are stored in Redis until they are ready to be moved to the short term queue.
+
+A cron job runs periodically to move long term messages to the short term queue.
+
+For more info, please take a look at the architectural decision records [adr](./adr/README.md) 

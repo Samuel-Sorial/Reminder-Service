@@ -1,80 +1,35 @@
-# Schedule Reminder workflow
+# Schedule Reminder Workflow
+
 ## Context and Problem Statement
 
-Handling many reminders without losing them in case of service restart
-is challenging, just like any computational problem,
-we need to find a way that fulfills our requirements with minimum resource.
-Having in mind scalability and ability to change!
+Handling many reminders without losing them in case of a service restart is challenging. We need a solution that fulfills our requirements with minimal resources, is scalable, and can be changed easily.
 
 ## Considered Options
-
-1. Built-in setTimeOut
+1. Built-in setTimeout
 2. Message Broker Only
 3. Database Only
 4. Message Broker & Database
 
 ## Decision Outcome
-***Message Broker & Database***
 
-Message broker will be used to handle reminders that lies in near future (minutes). While Database will be used to store reminders that happens later (hours).
+**Message Broker & Database** was chosen because it is scalable, durable, and real-time. The message broker will be used to handle reminders that are in the near future (minutes) while the database will be used to store reminders that happen later (hours). A scheduled job will run at intervals (e.g. 9 minutes) to retrieve reminders from the database and publish them to the message broker.
 
-Scheduled job will run at each interval (9 mins for example) to retrieve reminders that should be sent in near future from database and publish them to the message broker.
-### Positive Consequences
+## Pros and Cons of Other Options
 
-* Scalable
-* Durable
-* Real-time
+### Built-in setTimeout
+**Pros:** Easy to implement, real-time
 
-### Negative Consequences
-
-* Complex
-* Adding new dependencies to the project
-
-## Pros and Cons of the other options
-
-### Built-in setTimeOut
-
-#### Pros
-
-* Very easy to implement
-* Real-time
-
-#### Cons
-
-* Not scalable
-* Not durable
+**Cons:** Not scalable, not durable
 
 ### Message Broker Only
+**Pros:** Easy to implement, durable, scalable, real-time
 
-#### Pros
-
-* Easy to implement
-* Durable
-* Scalable
-* Real-time
-
-#### Cons
-
-* Might fail due to overloading queues with reminders that wait for long duration
+**Cons:** May fail due to queues being overloaded with long-duration reminders
 
 ### Database Only
+**Pros:** Easy to implement, durable, scalable
 
-#### Pros
-
-* Easy to implement
-* Durable
-* Scalable
-
-#### Cons
-
-* DB that supports notification on specific event 
-(redis expiry) are not garaunteed to be real-time.
-"The expired events are generated when a key is accessed and is
-found to be expired by one of the above systems, as a result
-there are no guarantees that the Redis server will be able
-to generate the expired event at the time the key time to live
-reaches the value of zero." _**Redis Docs**_
-* It's not the job of the database engine to schedule events
+**Cons:** May not be real-time, not the job of the database engine to schedule events
 
 ### References
 * [Redis expiration event](https://redis.io/topics/notifications)

@@ -11,3 +11,10 @@ Each ADR specifies:
 * Negative Consequences
 * Pros and Cons of each option
 * References (optional)
+
+
+### ADRs:
+1. [Schedule Reminder](./schedule-reminder.md)
+2. [Websocket Server](./websocket-server.md)
+3. [Message Broker](./message-broker.md)
+4. [Database](./database.md)
