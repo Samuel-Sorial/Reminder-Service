@@ -1,6 +1,6 @@
 import { WebSocketServer } from "./websocket/server";
 import { MessageBroker } from "./message-broker/message-broker";
-import { Database } from "./database/database";
+import { RedisDatabase } from "./database";
 import { InstantObserver } from "./reminder/observer/instant-observer";
 import { ShortTermObserver } from "./reminder/observer/short-term-observer";
 import { loadConfig } from "./config";
@@ -21,8 +21,8 @@ async function main() {
     );
     ShortTermObserver.useEngine(MessageBroker);
 
-    Database.startServer(DATABASE_URL);
-    LongTermObserver.useEngine(Database);
+    const db = new RedisDatabase(DATABASE_URL);
+    LongTermObserver.useEngine(db);
 
     console.log("Service started successfully!");
 }
