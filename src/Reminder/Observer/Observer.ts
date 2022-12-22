@@ -1,8 +1,8 @@
-import { Reminder } from "../Reminder";
-import { InstantObserver } from "./InstantObserver";
-import { DateUtils } from "../../Date/DateUtils";
-import { ShortTermObserver } from "./ShortTermObserver";
-import { LongTermObserver } from "./LongTermObserver";
+import { Reminder } from "../reminder";
+import { InstantObserver } from "./instant-observer";
+import { DateUtils } from "../../date/date-utils";
+import { ShortTermObserver } from "./short-term-observer";
+import { LongTermObserver } from "./long-term-observer";
 
 export interface Observer {
     sendReminder(reminder: Reminder): void;

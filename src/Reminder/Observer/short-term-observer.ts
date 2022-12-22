@@ -1,6 +1,6 @@
-import { Reminder } from "../Reminder";
-import { Observer } from "./Observer";
-import { DateUtils } from "../../Date/DateUtils";
+import { Reminder } from "../reminder";
+import { Observer } from "./observer";
+import { DateUtils } from "../../date/date-utils";
 
 export interface ShortTermEngine {
     delayedPublish(msg: string, msgTopic: string, delay: number): void;

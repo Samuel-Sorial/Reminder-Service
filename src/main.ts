@@ -1,10 +1,10 @@
-import { WebSocketServer } from "./WebSocket/Server";
-import { MessageBroker } from "./MessageBroker/MessageBroker";
-import { Database } from "./Database/Database";
-import { InstantObserver } from "./Reminder/Observer/InstantObserver";
-import { ShortTermObserver } from "./Reminder/Observer/ShortTermObserver";
-import { PORT, MESSAGE_BROKER_URL, DATABASE_URL } from "./Config/Environment";
-import { LongTermObserver } from "./Reminder/Observer/LongTermObserver";
+import { WebSocketServer } from "./websocket/server";
+import { MessageBroker } from "./message-broker/message-broker";
+import { Database } from "./database/database";
+import { InstantObserver } from "./reminder/observer/instant-observer";
+import { ShortTermObserver } from "./reminder/observer/short-term-observer";
+import { PORT, MESSAGE_BROKER_URL, DATABASE_URL } from "./config/environment";
+import { LongTermObserver } from "./reminder/observer/long-term-observer";
 
 async function main() {
     if (!MESSAGE_BROKER_URL) {

@@ -1,8 +1,8 @@
-import { ObserverFactory } from "./Observer";
-import { Reminder } from "../Reminder";
-import { InstantObserver } from "./InstantObserver";
-import { ShortTermObserver } from "./ShortTermObserver";
-import { LongTermObserver } from "./LongTermObserver";
+import { ObserverFactory } from "./observer";
+import { Reminder } from "../reminder";
+import { InstantObserver } from "./instant-observer";
+import { ShortTermObserver } from "./short-term-observer";
+import { LongTermObserver } from "./long-term-observer";
 
 describe("Observer factory", function () {
     it("returns instant in case of now", function () {

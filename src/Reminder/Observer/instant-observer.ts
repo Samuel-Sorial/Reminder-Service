@@ -1,5 +1,5 @@
-import { Reminder } from "../Reminder";
-import { Observer } from "./Observer";
+import { Reminder } from "../reminder";
+import { Observer } from "./observer";
 
 export interface InstantEngine {
     broadcast(msg: string): void;

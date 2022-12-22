@@ -1,4 +1,4 @@
-import { DateUtils } from "./DateUtils";
+import { DateUtils } from "./date-utils";
 
 describe("Validate date", function () {
     it("retruns true when given valid date", function () {
