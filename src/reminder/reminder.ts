@@ -1,5 +1,5 @@
 import { DateUtils } from "../date/date-utils";
-import { ObserverFactory } from "./observer/observer";
+import { ObserverFactory } from "./observer/observer-factory";
 
 export class Reminder {
     public readonly date: Date;

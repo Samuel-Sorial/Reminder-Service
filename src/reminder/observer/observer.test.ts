@@ -1,4 +1,4 @@
-import { ObserverFactory } from "./observer";
+import { ObserverFactory } from "./observer-factory";
 import { Reminder } from "../reminder";
 import { InstantObserver } from "./instant-observer";
 import { ShortTermObserver } from "./short-term-observer";
