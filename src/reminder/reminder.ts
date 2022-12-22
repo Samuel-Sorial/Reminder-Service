@@ -30,13 +30,13 @@ export class Reminder {
     }
 
     public async notify() {
-        let observer = ObserverFactory(this);
+        let observer = ObserverFactory(this.date);
 
         try {
             await observer.sendReminder(this);
         } catch (error) {
             // Means that reminder observer type changed while processing, re-generate it
-            observer = ObserverFactory(this);
+            observer = ObserverFactory(this.date);
             await observer.sendReminder(this);
         }
     }

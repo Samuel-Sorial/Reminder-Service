@@ -1,4 +1,3 @@
-import { Reminder } from "../reminder";
 import { DateUtils } from "../../date/date-utils";
 import { InstantObserver } from "./instant-observer";
 import { ShortTermObserver } from "./short-term-observer";
@@ -7,9 +6,9 @@ import { Observer } from "./observer";
 import { loadConfig } from "../../config";
 
 const { INTERVAL_MILLISECONDS } = loadConfig();
-export const ObserverFactory = (reminder: Reminder): Observer => {
+export const ObserverFactory = (date: Date): Observer => {
     const durationMillSeconds = DateUtils.subtractInMillSeconds(
-        reminder.date,
+        date,
         new Date()
     );
     if (durationMillSeconds <= 0) {

@@ -1,5 +1,4 @@
 import { ObserverFactory } from "./observer-factory";
-import { Reminder } from "../reminder";
 import { InstantObserver } from "./instant-observer";
 import { ShortTermObserver } from "./short-term-observer";
 import { LongTermObserver } from "./long-term-observer";
@@ -8,7 +7,7 @@ import { loadConfig } from "../../config";
 describe("observer factory", function () {
     const { INTERVAL_MILLISECONDS } = loadConfig();
     it("returns instant in case of now", function () {
-        const observer = ObserverFactory(new Reminder(new Date(), "t"));
+        const observer = ObserverFactory(new Date());
 
         expect(observer).toBeInstanceOf(InstantObserver);
     });
@@ -16,7 +15,7 @@ describe("observer factory", function () {
     it("returns instant in case of before", function () {
         const beforeDate = new Date();
         beforeDate.setMinutes(beforeDate.getMinutes() - 5);
-        const observer = ObserverFactory(new Reminder(beforeDate, "t"));
+        const observer = ObserverFactory(beforeDate);
 
         expect(observer).toBeInstanceOf(InstantObserver);
     });
@@ -26,7 +25,7 @@ describe("observer factory", function () {
         withinShortTerm.setMilliseconds(
             withinShortTerm.getMilliseconds() + INTERVAL_MILLISECONDS - 10
         );
-        const observer = ObserverFactory(new Reminder(withinShortTerm, "t"));
+        const observer = ObserverFactory(withinShortTerm);
 
         expect(observer).toBeInstanceOf(ShortTermObserver);
     });
@@ -36,7 +35,7 @@ describe("observer factory", function () {
         exceededShortTerm.setMilliseconds(
             exceededShortTerm.getMilliseconds() + INTERVAL_MILLISECONDS + 10
         );
-        const observer = ObserverFactory(new Reminder(exceededShortTerm, "t"));
+        const observer = ObserverFactory(exceededShortTerm);
 
         expect(observer).toBeInstanceOf(LongTermObserver);
     });
