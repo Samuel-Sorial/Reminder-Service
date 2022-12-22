@@ -1,24 +1,25 @@
 import { createClient, RedisClient } from "redis";
 import { IDatabase } from "./database";
+import { logger } from "../logger";
 export class RedisDatabase implements IDatabase {
     private client: RedisClient;
     constructor(url: string) {
         try {
             this.client = createClient({ url });
-            console.log("Connected successfully to database");
+            logger.info("Connected successfully to database");
         } catch (error) {
-            console.error(error);
+            logger.error(error);
             throw new Error("Can not connect to database");
         }
     }
 
     public closeServer(): Promise<void> {
         return new Promise((resolve, reject) => {
-            this.client.quit((err, reply) => {
+            this.client.quit((err) => {
                 if (err) {
                     return reject();
                 }
-                console.log("Closed DB Connection");
+                logger.info("Closed DB Connection");
                 resolve();
             });
         });

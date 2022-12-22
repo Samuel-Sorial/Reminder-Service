@@ -1,4 +1,5 @@
 import { Channel, connect, Connection } from "amqplib";
+import { logger } from "../logger";
 
 export class MessageBroker {
     private static connection: Connection;
@@ -9,9 +10,9 @@ export class MessageBroker {
         if (!this.connection) {
             try {
                 this.connection = await connect(connectionString);
-                console.log("Connected successfully to Message Broker");
+                logger.info("Connected successfully to Message Broker");
             } catch (error) {
-                console.error(error);
+                logger.error(error);
                 throw new Error("Can not connect to Message Broker!");
             }
         }
@@ -19,7 +20,7 @@ export class MessageBroker {
 
     static async closeConnection() {
         await this.connection.close();
-        console.log("Closed Message Broker Connection");
+        logger.info("Closed Message Broker Connection");
     }
 
     private static async getPublicChannel() {
@@ -98,7 +99,7 @@ export class MessageBroker {
             await consumerChannel.assertQueue(queueName);
         }
         await consumerChannel.consume(queueName, async (msg) => {
-            console.log("Msg Received");
+            logger.info("Msg Received");
             if (!msg) {
                 return;
             }
@@ -106,7 +107,7 @@ export class MessageBroker {
                 const content = msg.content.toString();
                 await callback(content);
             } catch (error) {
-                console.error(error);
+                logger.error(error);
             } finally {
                 consumerChannel.ack(msg);
             }

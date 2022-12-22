@@ -1,4 +1,5 @@
 import { Server, RawData, WebSocket } from "ws";
+import { logger } from "../logger";
 
 export class WebSocketServer {
     private static server: Server;
@@ -10,7 +11,7 @@ export class WebSocketServer {
             );
         }
         this.server = new Server({ port });
-        console.log(`Started successfully WebSocket server on port ${port}`);
+        logger.info(`Started successfully WebSocket server on port ${port}`);
     }
 
     public static addMessageListener(
