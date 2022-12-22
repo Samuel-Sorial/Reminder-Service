@@ -1,10 +1,10 @@
-import { ObserverFactory } from "./Observer";
-import { Reminder } from "../Reminder";
-import { InstantObserver } from "./InstantObserver";
-import { ShortTermObserver } from "./ShortTermObserver";
-import { LongTermObserver } from "./LongTermObserver";
+import { ObserverFactory } from "./observer-factory";
+import { Reminder } from "../reminder";
+import { InstantObserver } from "./instant-observer";
+import { ShortTermObserver } from "./short-term-observer";
+import { LongTermObserver } from "./long-term-observer";
 
-describe("Observer factory", function () {
+describe("observer factory", function () {
     it("returns instant in case of now", function () {
         const observer = ObserverFactory(new Reminder(new Date(), "t"));
 
@@ -23,7 +23,7 @@ describe("Observer factory", function () {
         const withinShortTerm = new Date();
         withinShortTerm.setMilliseconds(
             withinShortTerm.getMilliseconds() +
-                ShortTermObserver.INTERVAL_MILLSECONDS -
+                ShortTermObserver.INTERVAL_MILLISECONDS -
                 10
         );
         const observer = ObserverFactory(new Reminder(withinShortTerm, "t"));
@@ -35,7 +35,7 @@ describe("Observer factory", function () {
         const exceededShortTerm = new Date();
         exceededShortTerm.setMilliseconds(
             exceededShortTerm.getMilliseconds() +
-                ShortTermObserver.INTERVAL_MILLSECONDS +
+                ShortTermObserver.INTERVAL_MILLISECONDS +
                 10
         );
         const observer = ObserverFactory(new Reminder(exceededShortTerm, "t"));

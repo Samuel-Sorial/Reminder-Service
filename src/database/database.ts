@@ -8,10 +8,10 @@ export class Database {
             try {
                 this.client = createClient({ url });
 
-                console.log("Connected successfully to Database");
+                console.log("Connected successfully to database");
             } catch (error) {
                 console.error(error);
-                throw new Error("Can not connect to Database");
+                throw new Error("Can not connect to database");
             }
         }
     }

@@ -1,12 +1,12 @@
-import { Reminder } from "../Reminder";
-import { Observer } from "./Observer";
-import { Database } from "../../Database/Database";
-import { DateUtils } from "../../Date/DateUtils";
+import { Reminder } from "../reminder";
+import { Observer } from "./observer";
+import { Database } from "../../database/database";
+import { DateUtils } from "../../date/date-utils";
 
 export interface LongTermEngine {
     getListElements(listName: string): Promise<string[]>;
     removeList(listName: string): Promise<void>;
-    addToList(listNaem: string, msg: string): Promise<void>;
+    addToList(listName: string, msg: string): Promise<void>;
 }
 
 export class LongTermObserver implements Observer {

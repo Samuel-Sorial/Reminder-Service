@@ -1,13 +1,13 @@
-import { Reminder } from "../Reminder";
-import { Observer } from "./Observer";
-import { DateUtils } from "../../Date/DateUtils";
+import { Reminder } from "../reminder";
+import { Observer } from "./observer";
+import { DateUtils } from "../../date/date-utils";
 
 export interface ShortTermEngine {
     delayedPublish(msg: string, msgTopic: string, delay: number): void;
 }
 
 export class ShortTermObserver implements Observer {
-    public static readonly INTERVAL_MILLSECONDS = 3 * 60 * 1000;
+    public static readonly INTERVAL_MILLISECONDS = 3 * 60 * 1000;
     public static readonly QUEUE_NAME = "reminder";
     private static engine: ShortTermEngine;
 

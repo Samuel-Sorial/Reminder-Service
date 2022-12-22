@@ -1,4 +1,4 @@
-import { Reminder } from "./Reminder";
+import { Reminder } from "./reminder";
 
 describe("create reminder from string", function () {
     it("fails given invalid json string", function () {
