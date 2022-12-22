@@ -12,8 +12,8 @@ export class InstantObserver implements Observer {
         this.engine = engine;
     }
 
-    public static async onMessage(mesage: string) {
-        const reminder = Reminder.fromString(mesage);
+    public static async onMessage(message: string) {
+        const reminder = Reminder.fromString(message);
         await reminder.notify();
     }
 

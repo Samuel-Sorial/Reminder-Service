@@ -7,7 +7,7 @@ export interface ShortTermEngine {
 }
 
 export class ShortTermObserver implements Observer {
-    public static readonly INTERVAL_MILLSECONDS = 3 * 60 * 1000;
+    public static readonly INTERVAL_MILLISECONDS = 3 * 60 * 1000;
     public static readonly QUEUE_NAME = "reminder";
     private static engine: ShortTermEngine;
 

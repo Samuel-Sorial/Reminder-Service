@@ -12,7 +12,7 @@ export const ObserverFactory = (reminder: Reminder): Observer => {
     );
     if (durationMillSeconds <= 0) {
         return new InstantObserver();
-    } else if (durationMillSeconds <= ShortTermObserver.INTERVAL_MILLSECONDS) {
+    } else if (durationMillSeconds <= ShortTermObserver.INTERVAL_MILLISECONDS) {
         return new ShortTermObserver();
     } else {
         return new LongTermObserver();

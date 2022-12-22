@@ -1,13 +1,13 @@
 import { DateUtils } from "./date-utils";
 
 describe("Validate date", function () {
-    it("retruns true when given valid date", function () {
+    it("reruns true when given valid date", function () {
         const isValidDate = DateUtils.isValidDate(new Date());
 
         expect(isValidDate).toBe(true);
     });
 
-    it("retruns false when given invalid date", function () {
+    it("reruns false when given invalid date", function () {
         const isValidDate = DateUtils.isValidDate(new Date(""));
 
         expect(isValidDate).toBe(false);
@@ -111,7 +111,7 @@ describe("round to next n minutes", function () {
         expect(roundedDate.getMinutes()).toBe(20);
     });
 
-    it("returns next n when the same but millseconds greater than 0", function () {
+    it("returns next n when the same but milliseconds greater than 0", function () {
         const date = new Date();
         date.setMinutes(10);
         date.setMilliseconds(1);
@@ -119,7 +119,7 @@ describe("round to next n minutes", function () {
         expect(roundedDate.getMinutes()).toBe(20);
     });
 
-    it("always zeroes seconds & millseconds", function () {
+    it("always zeroes seconds & milliseconds", function () {
         const date = new Date();
         const roundedDate = DateUtils.roundByMinutes(date, 10);
         expect(roundedDate.getSeconds()).toBe(0);
@@ -163,7 +163,7 @@ describe("floor to lower n minutes", function () {
         });
     });
 
-    it("always zeroes seconds & millseconds", function () {
+    it("always zeroes seconds & milliseconds", function () {
         const date = new Date();
         const roundedDate = DateUtils.floorByMinutes(date, 10);
         expect(roundedDate.getSeconds()).toBe(0);

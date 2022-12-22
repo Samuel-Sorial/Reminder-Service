@@ -23,7 +23,7 @@ describe("observer factory", function () {
         const withinShortTerm = new Date();
         withinShortTerm.setMilliseconds(
             withinShortTerm.getMilliseconds() +
-                ShortTermObserver.INTERVAL_MILLSECONDS -
+                ShortTermObserver.INTERVAL_MILLISECONDS -
                 10
         );
         const observer = ObserverFactory(new Reminder(withinShortTerm, "t"));
@@ -35,7 +35,7 @@ describe("observer factory", function () {
         const exceededShortTerm = new Date();
         exceededShortTerm.setMilliseconds(
             exceededShortTerm.getMilliseconds() +
-                ShortTermObserver.INTERVAL_MILLSECONDS +
+                ShortTermObserver.INTERVAL_MILLISECONDS +
                 10
         );
         const observer = ObserverFactory(new Reminder(exceededShortTerm, "t"));

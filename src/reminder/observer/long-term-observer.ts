@@ -6,7 +6,7 @@ import { DateUtils } from "../../date/date-utils";
 export interface LongTermEngine {
     getListElements(listName: string): Promise<string[]>;
     removeList(listName: string): Promise<void>;
-    addToList(listNaem: string, msg: string): Promise<void>;
+    addToList(listName: string, msg: string): Promise<void>;
 }
 
 export class LongTermObserver implements Observer {
