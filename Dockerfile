@@ -44,7 +44,7 @@ RUN chmod 600 /var/spool/cron/crontabs/node
 # install dependencies
 USER node
 WORKDIR /home/node/service
-RUN npm install --production
+RUN npm ci --production
 
 # run service
 USER node
