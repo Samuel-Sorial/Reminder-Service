@@ -1,7 +1,7 @@
 import { createClient, RedisClient } from "redis";
-import { IDatabase } from "./database";
+import { Database } from "./database";
 import { logger } from "../logger";
-export class RedisDatabase implements IDatabase {
+export class RedisDatabase implements Database {
     private client: RedisClient | undefined;
     constructor(private url: string) {}
 

@@ -1,4 +1,4 @@
-export interface IDatabase {
+export interface Database {
     closeServer(): Promise<void>;
     addToList(listName: string, value: string): Promise<void>;
     getListElements(
